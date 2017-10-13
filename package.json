@@ -1,0 +1,22 @@
+{
+  "name": "electron-shopping-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArkejGit/electron-shopping-list.git"
+  },
+  "author": "arkej",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ArkejGit/electron-shopping-list/issues"
+  },
+  "homepage": "https://github.com/ArkejGit/electron-shopping-list#readme",
+  "dependencies": {
+    "electron": "^1.7.9"
+  }
+}

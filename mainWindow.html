@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Shopping List</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	 <style>
+	 	li {display: flex; align-items: center; justify-content: space-between; height: 60px}
+	 </style>
+</head>
+<body>
+	<nav>
+		<div class="nav-wrapper">
+			<a class="brand-logo center"><i class="material-icons">shopping_cart</i>Shopping list</a>
+		</div>
+	</nav>
+	<ul></ul>
+
+	<script>
+		const electron = require('electron');
+		const {ipcRenderer} = electron;
+
+		const ul = document.querySelector('ul');
+
+		//add item
+		ipcRenderer.on('item:add', function(e, item){
+			ul.className = 'collection';
+			const li = document.createElement('li');
+			li.className = 'collection-item';
+			const itemText = document.createTextNode(item);
+			const removeButton = document.createElement('a');
+			removeButton.className = 'btn-floating waves-effect waves-light red';
+			const removeIcon = document.createElement('i');
+			removeIcon.className = 'material-icons';
+			const iconContent = document.createTextNode('delete');
+
+			removeIcon.appendChild(iconContent);
+			removeButton.appendChild(removeIcon);
+			li.appendChild(itemText);
+			li.appendChild(removeButton);
+			ul.appendChild(li);
+
+			removeButton.addEventListener('click', (e) => {
+				const li = e.target.closest('li');
+				ul.removeChild(li);
+				if(ul.children.length == 0){
+				ul.className = '';
+				}
+			})
+		});
+
+		//clear items
+		ipcRenderer.on('item:clear', function(){
+			ul.innerHTML = '';
+			ul.className = '';
+		});
+	</script>
+</body>
+</html>
